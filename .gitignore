@@ -1,0 +1,39 @@
+# Archivos de usuario (rutas absolutas - NO subir)
+*.pro.user
+*.pro.user.*
+
+# Carpetas de compilación
+build/
+build-*/
+Debug/
+Release/
+debug/
+release/
+
+# Archivos generados por Qt
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*.qm
+object_script.*
+
+# Archivos objeto, ejecutables y binarios
+*.o
+*.obj
+*.exe
+*.app
+Makefile
+Makefile*
+qmake_all
+*.pdb
+*.ilk
+
+# Otros
+.qmake.stash
+*.autosave
+
+# Editores/IDE
+.vscode/
+.idea/
+Informe Desafio 1.docx
