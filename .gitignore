@@ -1,16 +1,24 @@
-# Archivos de usuario (rutas absolutas - NO subir)
-*.pro.user
-*.pro.user.*
+# Archivos de usuario de Qt Creator (rutas absolutas - NO subir)
+*.user
+*.user.*
 
 # Carpetas de compilación
 build/
 build-*/
+cmake-build-*/
 Debug/
 Release/
 debug/
 release/
+out/
 
-# Archivos generados por Qt
+# Archivos generados por CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Archivos generados por Qt (moc, uic, rcc)
 moc_*.cpp
 moc_*.h
 ui_*.h
@@ -23,17 +31,17 @@ object_script.*
 *.obj
 *.exe
 *.app
-Makefile
-Makefile*
-qmake_all
 *.pdb
 *.ilk
 
-# Otros
+# Otros archivos temporales de Qt
 .qmake.stash
 *.autosave
+qmake_all
 
 # Editores/IDE
 .vscode/
 .idea/
+
+# Informe
 Informe Desafio 1.docx
