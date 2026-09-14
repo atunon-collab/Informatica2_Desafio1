@@ -13,13 +13,10 @@ unsigned char leerFicha(const unsigned char * tablero, unsigned short indice);
 // Escribe el código de 3 bits "valor" en "indice": apaga bits viejos y enciende los nuevos
 void escribirFicha(unsigned char * tablero, unsigned short indice, unsigned char valor);
 
-// Pone en cero todos los bytes del bloque (deja el tablero vacío)
-void limpiarBloque(unsigned char * bloque, unsigned short nBytes);
-
 // Lee un solo bit de marca en la posición "indice" (para señalar fichas a eliminar)
-bool leerMarca(const unsigned char * marcas, unsigned int indice);
+bool leerMarca(const unsigned char * marcas, unsigned short indice);
 
 // Enciende o apaga el bit de marca en la posición "indice"
-void escribirMarca(unsigned char * marcas, unsigned int indice, bool valor);
+void escribirMarca(unsigned char * marcas, unsigned short indice, bool valor);
 
 #endif // BITS_H

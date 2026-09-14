@@ -1,15 +1,16 @@
 #include "bits.h"
 
-// indice = fila * columnas + columna
+// Convierte (fila, columna) en la posición lineal: indice = fila * columnas + columna
 unsigned short calcularIndice(unsigned short fila, unsigned short columnas, unsigned short columna) {;
     return (fila*columnas+columna);
 }
 
-// bytes = (3*filas*columnas + 7) / 8, el +7 redondea hacia arriba
+// Calcula los bytes necesarios para el tablero: (3*filas*columnas + 7) / 8
 unsigned short bytesNecesarios(unsigned short filas, unsigned short columnas) {
     return (3*filas*columnas+7)/8;
 }
 
+// Devuelve el código de 3 bits guardado en "indice" (maneja el caso repartido entre 2 bytes)
 unsigned char leerFicha(const unsigned char* tablero, unsigned short indice){
     unsigned short byte = indice*3/8;          // byte donde empieza la ficha
     unsigned short desplazamiento = indice*3%8; // bit inicial dentro del byte
@@ -20,11 +21,12 @@ unsigned char leerFicha(const unsigned char* tablero, unsigned short indice){
     }
     else{
         // caso repartido: la ficha cruza al byte siguiente
-        return (((tablero[byte] >> desplazamiento) | (tablero[byte + 1] << (8 - desplazamiento))) & 7);
+        return ((tablero[byte] >> desplazamiento) | (tablero[byte + 1] << (8 - desplazamiento))) & 7;
     }
 }
 
-void escribirFicha(unsigned char * tablero, unsigned int indice, unsigned char valor){
+// Escribe el código de 3 bits "valor" en "indice": apaga bits viejos y enciende los nuevos
+void escribirFicha(unsigned char * tablero, unsigned short indice, unsigned char valor){
     unsigned short byte = indice*3/8;
     unsigned short desplazamiento = indice*3%8;
 
@@ -43,29 +45,23 @@ void escribirFicha(unsigned char * tablero, unsigned int indice, unsigned char v
     }
 }
 
-// pone en cero todos los bytes del bloque (tablero vacío)
-void limpiarBloque(unsigned char * bloque, unsigned short nBytes){
-    for (unsigned short i = 0; i < nBytes; i++) {
-        bloque[i] = 0;
-    }
+
+// Lee un solo bit de marca en la posición "indice" (para señalar fichas a eliminar)
+bool leerMarca(const unsigned char* marcas, unsigned short indice) {
+    unsigned short byte = indice / 8;           // byte donde vive el bit de marca
+    unsigned short desplazamiento = indice % 8; // posición del bit dentro del byte
+
+    return (marcas[byte] >> desplazamiento) & 1; // aisla ese bit con la máscara 1
 }
 
-// lee un solo bit de marca en la posición "indice"
-bool leerMarca(const unsigned char* marcas, unsigned int indice) {
-    unsigned int byte = indice / 8;
-    unsigned int desplazamiento = indice % 8;
-
-    return (marcas[byte] >> desplazamiento) & 1;
-}
-
-// enciende o apaga el bit de marca en la posición "indice"
-void escribirMarca(unsigned char* marcas, unsigned int indice, bool valor) {
-    unsigned int byte = indice / 8;
-    unsigned int desplazamiento = indice % 8;
+// Enciende o apaga el bit de marca en la posición "indice"
+void escribirMarca(unsigned char* marcas, unsigned short indice, bool valor) {
+    unsigned short byte = indice / 8;
+    unsigned short desplazamiento = indice % 8;
 
     if (valor) {
-        marcas[byte] |= (1 << desplazamiento);
+        marcas[byte] |= (1 << desplazamiento);  // enciende el bit (OR)
     } else {
-        marcas[byte] &= ~(1 << desplazamiento);
+        marcas[byte] &= ~(1 << desplazamiento); // apaga el bit (AND con máscara invertida)
     }
 }
