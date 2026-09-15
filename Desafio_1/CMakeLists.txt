@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(Desafio_1 main.cpp
     bits.h bits.cpp
-    tablero.h tablero.cpp)
+    tablero.h tablero.cpp
+    combinaciones.h combinaciones.cpp)
 
 include(GNUInstallDirs)
 install(TARGETS Desafio_1
