@@ -13,6 +13,7 @@ unsigned short marcarVerticales(const unsigned char * tablero, unsigned char * m
 //Recorre la máscara y escribe el código VACÍO (000) en cada posición marcada
 unsigned short eliminarMarcadas(unsigned char * tablero, const unsigned char * marcas, unsigned short filas, unsigned short columnas);
 
+// Se utiliza para verificar si hay combinaciones después de generar el tablero
 bool hayCombinaciones(const unsigned char * tablero, unsigned short filas, unsigned short columnas);
 
 #endif // COMBINACIONES_H

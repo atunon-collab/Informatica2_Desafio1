@@ -25,7 +25,7 @@ unsigned short marcarHorizontales(const unsigned char *tablero, unsigned char *m
 
         for (unsigned short columna = 0; columna < columnas; columna++)
         {
-            unsigned short indice = calcularIndice(fila, columna, columnas); // posición lineal
+            unsigned short indice = calcularIndice(fila, columnas, columna); // posición lineal
             unsigned char fichaActual = leerFicha(tablero, indice); // ficha en esa posición
             bool esVacia = (fichaActual == 0); // 000 = vacío
 
@@ -38,7 +38,7 @@ unsigned short marcarHorizontales(const unsigned char *tablero, unsigned char *m
                 if (largoDeRacha >= 3)
                 {
                     for (unsigned short c = inicioDeRacha; c < inicioDeRacha + largoDeRacha; c++)
-                        escribirMarca(marcas, calcularIndice(fila, c, columnas), true); // marca cada posición
+                        escribirMarca(marcas, calcularIndice(fila, columnas, c), true); // marca cada posición
                     totalCombinaciones++; // cuenta la combinación
                 }
 
@@ -61,7 +61,7 @@ unsigned short marcarHorizontales(const unsigned char *tablero, unsigned char *m
         if (largoDeRacha >= 3) // la racha llegó hasta el final de la fila
         {
             for (unsigned short c = inicioDeRacha; c < inicioDeRacha + largoDeRacha; c++)
-                escribirMarca(marcas, calcularIndice(fila, c, columnas), true);
+                escribirMarca(marcas, calcularIndice(fila, columnas, c), true);
             totalCombinaciones++;
         }
     }
@@ -69,6 +69,7 @@ unsigned short marcarHorizontales(const unsigned char *tablero, unsigned char *m
     return totalCombinaciones; // total de combinaciones horizontales encontradas
 }
 
+// Exactamente la misma lógica pero recorriendo por columnas: el ciclo externo va sobre las columnas y el interno sobre las filas
 // Exactamente la misma lógica pero recorriendo por columnas: el ciclo externo va sobre las columnas y el interno sobre las filas
 unsigned short marcarVerticales(const unsigned char *tablero, unsigned char *marcas, unsigned short filas, unsigned short columnas){
 
@@ -83,7 +84,7 @@ unsigned short marcarVerticales(const unsigned char *tablero, unsigned char *mar
 
         for (unsigned short fila = 0; fila < filas; fila++)
         {
-            unsigned short indice = calcularIndice(fila, columna, columnas);
+            unsigned short indice = calcularIndice(fila, columnas, columna);
             unsigned char fichaActual = leerFicha(tablero, indice);
             bool esVacia = (fichaActual == 0);
 
@@ -96,7 +97,8 @@ unsigned short marcarVerticales(const unsigned char *tablero, unsigned char *mar
                 if (largoDeRacha >= 3)
                 {
                     for (unsigned short f = inicioDeRacha; f < inicioDeRacha + largoDeRacha; f++)
-                        escribirMarca(marcas, calcularIndice(f, columna, columnas), true);
+                        escribirMarca(marcas, calcularIndice(f, columnas, columna), true);
+                    totalCombinaciones++;
                 }
 
                 if (!esVacia)
@@ -118,7 +120,7 @@ unsigned short marcarVerticales(const unsigned char *tablero, unsigned char *mar
         if (largoDeRacha >= 3)
         {
             for (unsigned short f = inicioDeRacha; f < inicioDeRacha + largoDeRacha; f++)
-                escribirMarca(marcas, calcularIndice(f, columna, columnas), true);
+                escribirMarca(marcas, calcularIndice(f, columnas, columna), true);
             totalCombinaciones++;
         }
     }
@@ -142,13 +144,14 @@ unsigned short eliminarMarcadas(unsigned char * tablero, const unsigned char * m
     return fichasEliminadas; // total de fichas borradas en esta ronda
 }
 
+// Se utiliza para verificar si hay combinaciones después de generar el tablero
 bool hayCombinaciones(const unsigned char *tablero, unsigned short filas, unsigned short columnas)
 {
     for (unsigned short fila = 0; fila < filas; fila++) // recorre fila por fila
     {
         for (unsigned short columna = 0; columna < columnas; columna++) // y columna por columna
         {
-            unsigned short indice = calcularIndice(fila, columna, columnas); // posición lineal
+            unsigned short indice = calcularIndice(fila, columnas, columna); // posición lineal
             unsigned char ficha = leerFicha(tablero, indice); // ficha en esa posición
 
             if (ficha == 0) // vacío no puede iniciar combinación
@@ -156,8 +159,8 @@ bool hayCombinaciones(const unsigned char *tablero, unsigned short filas, unsign
 
             if (columna + 2 < columnas) // hay dos posiciones más a la derecha
             {
-                unsigned char siguiente = leerFicha(tablero, calcularIndice(fila, columna + 1, columnas));
-                unsigned char subsiguiente = leerFicha(tablero, calcularIndice(fila, columna + 2, columnas));
+                unsigned char siguiente = leerFicha(tablero, calcularIndice(fila, columnas, columna + 1));
+                unsigned char subsiguiente = leerFicha(tablero, calcularIndice(fila, columnas, columna + 2));
 
                 if (ficha == siguiente && ficha == subsiguiente) // las tres son iguales
                     return true; // ya hay combinación, no sigue buscando
@@ -165,8 +168,8 @@ bool hayCombinaciones(const unsigned char *tablero, unsigned short filas, unsign
 
             if (fila + 2 < filas) // hay dos posiciones más abajo
             {
-                unsigned char siguiente = leerFicha(tablero, calcularIndice(fila + 1, columna, columnas));
-                unsigned char subsiguiente = leerFicha(tablero, calcularIndice(fila + 2, columna, columnas));
+                unsigned char siguiente = leerFicha(tablero, calcularIndice(fila + 1, columnas, columna));
+                unsigned char subsiguiente = leerFicha(tablero, calcularIndice(fila + 2, columnas, columna));
 
                 if (ficha == siguiente && ficha == subsiguiente) // las tres son iguales
                     return true;
