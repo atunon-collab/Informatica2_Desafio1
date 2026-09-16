@@ -1,7 +1,7 @@
 #include "bits.h"
 
 // Convierte (fila, columna) en la posición lineal: indice = fila * columnas + columna
-unsigned short calcularIndice(unsigned short fila, unsigned short columnas, unsigned short columna) {;
+unsigned short calcularIndice(unsigned short fila, unsigned short columnas, unsigned short columna) {
     return (fila*columnas+columna);
 }
 
@@ -45,6 +45,11 @@ void escribirFicha(unsigned char * tablero, unsigned short indice, unsigned char
     }
 }
 
+// Calcula los bytes necesarios para el tablero auxiliar de marcas
+unsigned short bytesNecesariosMarcas(unsigned short filas, unsigned short columnas){
+    return (filas*columnas+7)/8;
+}
+
 
 // Lee un solo bit de marca en la posición "indice" (para señalar fichas a eliminar)
 bool leerMarca(const unsigned char* marcas, unsigned short indice) {
@@ -64,4 +69,11 @@ void escribirMarca(unsigned char* marcas, unsigned short indice, bool valor) {
     } else {
         marcas[byte] &= ~(1 << desplazamiento); // apaga el bit (AND con máscara invertida)
     }
+}
+
+// Libera el arreglo de marcas viejo y reserva uno nuevo del tamaño correcto
+void actualizarMarcas(unsigned char *& marcas, unsigned short filas, unsigned short columnas) {
+    delete[] marcas;
+    unsigned short nBytes = bytesNecesariosMarcas(filas, columnas);
+    marcas = new unsigned char[nBytes]();
 }
