@@ -18,10 +18,10 @@ void actualizarVariableSuma(unsigned short & variable, unsigned short valor){
 // Imprime datos importantes para la jugabilidad
 void mostrarEstado(unsigned short filas, unsigned short columnas, unsigned short eliminaciones,
                    unsigned short combinaciones, unsigned short puntuacion) {
-    cout << "\n----------- ESTADO ACTUAL -----------\n";
+    cout << "\n=========== ESTADO ACTUAL ===========\n";
     cout << "Tamano del tablero : " << filas << " x " << columnas << "\n";
     cout << "Fichas eliminadas  : " << eliminaciones << "\n";
     cout << "Combinaciones      : " << combinaciones << "\n";
     cout << "Puntuacion         : " << puntuacion << "\n";
-    cout << "--------------------------------------\n";
+    cout << "======================================\n";
 }

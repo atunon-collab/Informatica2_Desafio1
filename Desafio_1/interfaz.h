@@ -17,6 +17,6 @@ unsigned short leerOpcion(short minimo, short maximo);
 bool posicionValida(unsigned short fila, unsigned short columna, unsigned short filas, unsigned short columnas);
 
 // Muestra el resultado inmediato de la jugada: cuantas fichas se eliminaron
-// en la ultima ronda de procesarCascadas y cuantas cascadas se dispararon
 void mostrarResultadoTurno(unsigned short eliminadasActuales, unsigned short cascadasActuales);
+
 #endif // INTERFAZ_H

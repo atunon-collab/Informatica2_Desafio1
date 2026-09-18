@@ -13,4 +13,5 @@ void actualizarVariableSuma(unsigned short & variable, unsigned short valor);
 // Imprime datos importantes para la jugabilidad
 void mostrarEstado(unsigned short filas, unsigned short columnas, unsigned short eliminaciones,
                    unsigned short combinaciones, unsigned short puntuacion);
+
 #endif // ESTADO_H

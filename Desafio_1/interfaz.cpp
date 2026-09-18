@@ -52,12 +52,12 @@ void mostrarMenuPartida() {
 
 // Lee un número entero de la consola, se verifica que sea válido como número y que esté entre el rango de [mínimo,máximo]
 unsigned short leerOpcion(short minimo, short maximo) {
-    char entrada[10];
+    char entrada[3];
 
     while (true) {
         cout << "Seleccione una opcion en el intervalo de [" << minimo << " - " << maximo << "] (o 'C' para cancelar): ";
 
-        cin.width(10); // Evita desbordamiento de memoria si el usuario ingresa > 20 caracteres
+        cin.width(3); // Evita desbordamiento de memoria si el usuario ingresa > 20 caracteres
         cin >> entrada;
 
         // Verificamos si es una 'C' o 'c' usando los índices del arreglo
@@ -100,8 +100,8 @@ bool posicionValida(unsigned short fila, unsigned short columna, unsigned short 
 // Muestra el resultado inmediato de la jugada: cuantas fichas se eliminaron
 // en la ultima ronda de procesarCascadas y cuantas cascadas se dispararon
 void mostrarResultadoTurno(unsigned short eliminadasActuales, unsigned short cascadasActuales) {
-    cout << "\n--- Resultado de la jugada ---\n";
+    cout << "\n=== Resultado de la jugada ===\n";
     cout << "Eliminaciones actuales : " << eliminadasActuales << "\n";
     cout << "Cascadas actuales      : " << cascadasActuales << "\n";
-    cout << "-------------------------------\n";
+    cout << "===============================\n";
 }
