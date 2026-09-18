@@ -143,39 +143,3 @@ unsigned short eliminarMarcadas(unsigned char * tablero, const unsigned char * m
     }
     return fichasEliminadas; // total de fichas borradas en esta ronda
 }
-
-// Se utiliza para verificar si hay combinaciones después de generar el tablero
-bool hayCombinaciones(const unsigned char *tablero, unsigned short filas, unsigned short columnas)
-{
-    for (unsigned short fila = 0; fila < filas; fila++) // recorre fila por fila
-    {
-        for (unsigned short columna = 0; columna < columnas; columna++) // y columna por columna
-        {
-            unsigned short indice = calcularIndice(fila, columnas, columna); // posición lineal
-            unsigned char ficha = leerFicha(tablero, indice); // ficha en esa posición
-
-            if (ficha == 0) // vacío no puede iniciar combinación
-                continue;
-
-            if (columna + 2 < columnas) // hay dos posiciones más a la derecha
-            {
-                unsigned char siguiente = leerFicha(tablero, calcularIndice(fila, columnas, columna + 1));
-                unsigned char subsiguiente = leerFicha(tablero, calcularIndice(fila, columnas, columna + 2));
-
-                if (ficha == siguiente && ficha == subsiguiente) // las tres son iguales
-                    return true; // ya hay combinación, no sigue buscando
-            }
-
-            if (fila + 2 < filas) // hay dos posiciones más abajo
-            {
-                unsigned char siguiente = leerFicha(tablero, calcularIndice(fila + 1, columnas, columna));
-                unsigned char subsiguiente = leerFicha(tablero, calcularIndice(fila + 2, columnas, columna));
-
-                if (ficha == siguiente && ficha == subsiguiente) // las tres son iguales
-                    return true;
-            }
-        }
-    }
-
-    return false; // se revisó todo el tablero y no hubo ninguna racha de 3
-}
