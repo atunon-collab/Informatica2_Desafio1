@@ -32,23 +32,13 @@ void aplicarGravedad(unsigned char * tablero, unsigned short filas, unsigned sho
 }
 
 // Recorre el tablero y pone una ficha aleatoria en cada posición vacía
-void rellenarVacios(unsigned char * tablero, unsigned short filas, unsigned short columnas){
+void rellenarVacios(unsigned char * tablero, unsigned short filas, unsigned short columnas)
+{
+    unsigned short total = filas * columnas;
 
-    // Cuenta cuántos espacios vacíos quedaron en la parte superior de cada columna
-    for (unsigned short col = 0; col < columnas; col++) {
-        unsigned short vacios = 0;
-
-        for (short fil = 0; fil < filas; fil++) {
-            if (leerFicha(tablero, calcularIndice(fil, columnas, col)) == 0)
-                vacios++;
-            else
-                break;
-        }
-
-        // Solo recorrer las filas que quedaron vacías
-        for (unsigned int fil = 0; fil < vacios; fil++) {
-            unsigned short indiceActual=calcularIndice(fil, columnas, col);
-            escribirFicha(tablero, indiceActual, fichaAleatoria());
+    for (unsigned short indice = 0; indice < total; indice++) {
+        if (leerFicha(tablero, indice) == 0) {
+            escribirFicha(tablero, indice, fichaAleatoria());
         }
     }
 }
