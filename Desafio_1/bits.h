@@ -16,13 +16,14 @@ void escribirFicha(unsigned char * tablero, unsigned short indice, unsigned char
 // Calcula los bytes necesarios para el tablero auxiliar de marcas
 unsigned short bytesNecesariosMarcas(unsigned short filas, unsigned short columnas);
 
+// Libera el arreglo de marcas viejo y reserva uno nuevo del tamaño correcto, en caso de que
+// el tamaño actual sea util solo se limpia y desplaza
+void actualizarMarcas(unsigned char *& marcas, unsigned short filas, unsigned short columnas, unsigned short & bytesReservadosMarcas);
+
 // Lee un solo bit de marca en la posición "indice" (para señalar fichas a eliminar)
 bool leerMarca(const unsigned char * marcas, unsigned short indice);
 
 // Enciende o apaga el bit de marca en la posición "indice"
 void escribirMarca(unsigned char * marcas, unsigned short indice, bool valor);
-
-// Libera el arreglo de marcas viejo y reserva uno nuevo del tamaño correcto
-void actualizarMarcas(unsigned char *& marcas, unsigned short filas, unsigned short columnas);
 
 #endif // BITS_H

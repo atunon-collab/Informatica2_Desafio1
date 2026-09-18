@@ -72,8 +72,21 @@ void escribirMarca(unsigned char* marcas, unsigned short indice, bool valor) {
 }
 
 // Libera el arreglo de marcas viejo y reserva uno nuevo del tamaño correcto
-void actualizarMarcas(unsigned char *& marcas, unsigned short filas, unsigned short columnas) {
-    delete[] marcas;
-    unsigned short nBytes = bytesNecesariosMarcas(filas, columnas);
-    marcas = new unsigned char[nBytes]();
+void actualizarMarcas(unsigned char *& marcas, unsigned short filas, unsigned short columnas,
+                      unsigned short & bytesReservadosMarcas)
+{
+    unsigned short bytesNecesariosAhora = bytesNecesariosMarcas(filas, columnas);
+
+    // Utiliza la misma regla de 65% que el tablero principal
+    bool sobraDemasiado = (bytesNecesariosAhora * 100) < (bytesReservadosMarcas * 65);
+
+    if (marcas == nullptr || bytesNecesariosAhora > bytesReservadosMarcas || sobraDemasiado) {
+        delete[] marcas;
+        marcas = new unsigned char[bytesNecesariosAhora](); // ya queda en ceros
+        bytesReservadosMarcas = bytesNecesariosAhora;
+    } else {
+        // Al haber espacio suficiente solo apaga los bits
+        for (unsigned short i = 0; i < bytesReservadosMarcas; i++)
+            marcas[i] = 0;
+    }
 }
