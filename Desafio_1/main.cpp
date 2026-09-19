@@ -67,6 +67,7 @@ int main()
             mostrarTablero(tablero, filas, columnas);
             mostrarMenuPartida();
             unsigned short opcion = leerOpcion(1, 7);
+            unsigned short eliminacionesAntes = eliminaciones;
 
             switch (opcion) {
             case 1: { // Eliminar fichas
@@ -94,7 +95,7 @@ int main()
 
                 // Si la caída de fichas formó nuevas combinaciones, se hacen cascadas
                 unsigned short cascadasActuales = (1 + procesarCascadas(tablero, marcas, filas, columnas, eliminaciones, combinacionesTotales, puntuacion, eliminadasRonda));
-                mostrarResultadoTurno(eliminadasRonda, cascadasActuales);
+                mostrarResultadoTurno(eliminaciones - eliminacionesAntes, cascadasActuales);
                 break;
             }
             case 2: { // Agregar fila
